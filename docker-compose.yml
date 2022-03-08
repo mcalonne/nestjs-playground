@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  backend:
+    build: .
+    ports:
+      - 8000:3000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: crypto-management
+      MYSQL_USER: mcalonne
+      MYSQL_PASSWORD: mcalonne456
+      MYSQL_ROOT_PASSWORD: azertyuiop
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 33066:3006
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
